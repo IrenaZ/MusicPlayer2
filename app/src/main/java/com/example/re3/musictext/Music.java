@@ -10,15 +10,35 @@ import android.net.Uri;
 public class Music {
 
 
-    private String name; // название
+   // private String name; // название
 
-    private Bitmap album_pic; // ресурс
+    //private Bitmap album_pic; // ресурс
     private String path; //путь
-    private Uri mus_Uri;
+
+    // private Uri mus_Uri;
+private  int id;
+
+    public Music (){}
+    public Music(int id, String path){
+        this.id=id;
+        this.path=path;
+
+    }
+
+    public Music( String path){
+              this.path=path;
+    }
 
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
+/*
     public Uri getMus_Uri() {
         return mus_Uri;
     }
@@ -45,7 +65,7 @@ public class Music {
     public void setAlbumpic(Bitmap album_pic) {
         this.album_pic = album_pic;
     }
-
+*/
     public String getPath() {
         return path;
     }

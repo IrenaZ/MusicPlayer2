@@ -2,6 +2,7 @@ package com.example.re3.musictext;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnPreparedListener;
@@ -76,9 +77,10 @@ public class MediaActivity extends Activity implements OnPreparedListener, OnCom
             mediaPlayer = new MediaPlayer();
             path="file:///sdcard/first.mp3/";
            // uri = Uri.parse(path);
+            AssetFileDescriptor afd = getAssets().openFd(path);
+            mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
 
-
-            mediaPlayer=MediaPlayer.create(this,  Uri.parse(path));
+           // mediaPlayer=MediaPlayer.create(this,  Uri.parse(path));
             //mediaPlayer.setDataSource(path);
 
 

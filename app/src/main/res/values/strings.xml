@@ -7,7 +7,7 @@
     <string name="pause">pause</string>
     <string name="resume">resume</string>
     <string name="stop">stop</string>
-
+    <string name="title_activity_gallery">Gallery</string>
 
 
 </resources>

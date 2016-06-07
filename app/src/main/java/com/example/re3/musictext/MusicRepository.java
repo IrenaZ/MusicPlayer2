@@ -39,13 +39,13 @@ public class MusicRepository {
                 art = mediaMetadataRetriever.getEmbeddedPicture();
 
                 Music aud=new Music();
-                aud.setName(albumName);
+               /* aud.setName(albumName);
                 if(art != null) {
                     aud.setAlbumpic(BitmapFactory.decodeByteArray(art, 0, art.length));
-                }
+                }*/
 
                 aud.setPath(path);
-                aud.setMus_Uri(mus_Uri);
+                //aud.setMus_Uri(mus_Uri);
                 AudioList.add(aud);
             }
         } catch (IOException e) {

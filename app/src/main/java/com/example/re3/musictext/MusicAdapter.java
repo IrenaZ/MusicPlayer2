@@ -48,8 +48,8 @@ class MusicAdapter extends ArrayAdapter<Music> {
 
         Music audio = this.getItem(position);
 
-        holder.imageView.setImageBitmap((audio.getAlbum_pic()));
-        holder.nameView.setText(audio.getName());
+       // holder.imageView.setImageBitmap((audio.getAlbum_pic()));
+      //  holder.nameView.setText(audio.getName());
 
 
 
