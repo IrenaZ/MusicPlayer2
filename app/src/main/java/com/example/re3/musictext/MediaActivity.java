@@ -1,35 +1,27 @@
 package com.example.re3.musictext;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
-import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.app.Activity;
-
-import java.io.IOException;
 
 
 public class MediaActivity extends Activity implements OnPreparedListener, OnCompletionListener{
 
     MediaPlayer mediaPlayer;
     CheckBox chbLoop;
-    String path;
+   // String path;
 
     Uri uri;
 
@@ -43,7 +35,12 @@ public class MediaActivity extends Activity implements OnPreparedListener, OnCom
 
         Intent intent = getIntent();
         ///////////////////////
-        String path = intent.getStringExtra(MainActivity.keyIdentifer);
+        String getId = intent.getStringExtra(MainActivity.keyIdentifer);
+        int id = Integer.parseInt(getId);
+        DatabaseHelper db= new DatabaseHelper(getApplicationContext());
+        Music music= new Music();
+       music = db.getMusic(id);
+        String path = music.getPath();
 
         if (path== null){
             path="No path was got";
@@ -62,6 +59,18 @@ public class MediaActivity extends Activity implements OnPreparedListener, OnCom
         });
 
 
+       // MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
+
+
+
+       // mediaMetadataRetriever.setDataSource(path);
+
+
+        /*String albumName = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
+        if (albumName== null){
+            albumName="untitled";
+        }*/
+
 
         TextView textView = (TextView) findViewById(R.id.text);
         textView.setText(path);
@@ -75,10 +84,11 @@ public class MediaActivity extends Activity implements OnPreparedListener, OnCom
         //String DATA= path;
         try {
             mediaPlayer = new MediaPlayer();
-            path="file:///sdcard/first.mp3/";
+           // path="file:///sdcard/first.mp3/";
            // uri = Uri.parse(path);
-            AssetFileDescriptor afd = getAssets().openFd(path);
-            mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+
+           // AssetFileDescriptor afd = getAssets().openFd(path);
+          //  mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
 
            // mediaPlayer=MediaPlayer.create(this,  Uri.parse(path));
             //mediaPlayer.setDataSource(path);

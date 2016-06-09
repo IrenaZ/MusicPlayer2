@@ -10,8 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity {
 
     public final static String keyIdentifer =  "com.example.re3.musictext";
@@ -26,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 setContentView(R.layout.main);
       list = (ListView) findViewById(R.id.listId);
         FloatingActionButton insertButton = (FloatingActionButton) findViewById(R.id.insert);
+        FloatingActionButton deleteButton = (FloatingActionButton) findViewById(R.id.delete);
 
          list.setOnItemClickListener (new AdapterView.OnItemClickListener() {
             @Override
@@ -40,16 +39,60 @@ setContentView(R.layout.main);
 
                 Intent intent = new Intent(getApplicationContext(), MediaActivity.class);
                 String _id = Long.toString(id);
-                intent.putExtra("id",_id);
-                //intent.putExtra(keyIdentifer, selectedMusic.getPath());
-
-
+                intent.putExtra(keyIdentifer,_id);
                 startActivity(intent);
 
 
 
             }
         });
+
+
+
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                           int position, long id) {
+                Toast.makeText(getApplicationContext(),
+                        "Item in position " + position + " delete",
+                        Toast.LENGTH_LONG).show();
+
+               // int idDel = Integer.parseInt(id);
+                DatabaseHelper db= new DatabaseHelper(getApplicationContext());
+                Music music= new Music();
+
+                music = db.getMusic(position);
+                db.deleteMusic(music);
+
+
+
+
+                /*    cursor = sqlHelper.getAllCursor();
+
+                    String [] from = new String[]{DatabaseHelper.COLUMN_PATH};
+                    int[] to = new int[]{R.id.name};
+                    userCursor = new userCursorAdapter(getApplicationContext(),R.layout.activity_main, cursor,from,to,0);
+                    list.setAdapter(userCursor);*/
+
+
+
+
+                // Возвращает "истину", чтобы завершить событие клика, чтобы
+                // onListItemClick больше не вызывался
+                return true;
+            }
+        });
+
+
+
+
+
+
+
+
+
+
 
         insertButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +101,15 @@ setContentView(R.layout.main);
                 startActivity(intent);
             }
         });
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // Intent intent = new Intent(MainActivity.this, Gallery.class);
+               // startActivity(intent);
+            }
+        });
+
 
 
         //List<Music> musicList = new MusicRepository().getAll(this);
